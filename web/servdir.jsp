@@ -4,7 +4,9 @@
     Author     : Andrey Belov
 --%>
 
+<%@page import="beans.Service"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,6 +14,20 @@
         <title>Список услуг</title>
     </head>
     <body>
+        <%request.setCharacterEncoding("UTF-8");%>
+        
+        <jsp:useBean id="servDir" class="beans.ServiceDir" scope="session" />
+        
+<c:if test="${!empty param.findstr}"  var="val" scope="session" >
+    ${servDir.setFindStr(param.findstr)}
+    ${servDir.fill( sessionScope.DataSource)}
+    <% 
+            for(Service sb:  servDir.getServices()){
+            System.out.println("--- "+ sb.getName());
+        }
+    %>
+</c:if>
+        
         <h1>Список услуг</h1>
         <!<!-- форма поиска -->
 <form action="servdir.jsp" method="get">
