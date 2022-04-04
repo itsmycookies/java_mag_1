@@ -44,12 +44,10 @@ public class CheckSrv extends HttpServlet {
             con = ds.getConnection();
             st = con.createStatement();
             String qu = "SELECT USER_ID FROM STUD.USERS WHERE NAME='" + name + "' AND PWD='" + pwd + "'";
-            System.out.println("------ " + qu);
             ResultSet rs = st.executeQuery(qu);
             if (rs.next()) {
                 userId = rs.getInt("user_id");
-                System.out.println("------ " + userId);
-
+           
             }
             con.close();
             if (userId > 0) {  // если прошли регистрацию ------------------
@@ -73,7 +71,13 @@ public class CheckSrv extends HttpServlet {
                 }
             }
 
-        } catch (NamingException | SQLException | ServletException | IOException ex) {
+        } catch (NamingException ex) {
+            Logger.getLogger(CheckSrv.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(CheckSrv.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ServletException ex) {
+            Logger.getLogger(CheckSrv.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
             Logger.getLogger(CheckSrv.class.getName()).log(Level.SEVERE, null, ex);
         }
 

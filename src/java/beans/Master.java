@@ -15,6 +15,7 @@ import javax.sql.DataSource;
  * @author Andrey Belov
  */
 public class Master {
+    
     public static final String tableName = "master";
     
     private int masterId;
@@ -28,7 +29,6 @@ public class Master {
         masterId = -1;
         fName = "";
         lName = "";
-        location = "";
     }
 
     public Master(int masterId, String location, String fName, String lName) {
@@ -58,7 +58,7 @@ public class Master {
         return fName;
     }
 
-    public void setFname(String fName) {
+    public void setFName(String fName) {
         this.fName = fName;
     }
 
@@ -69,13 +69,13 @@ public class Master {
     public void setLName(String lName) {
         this.lName = lName;
     }
-   
-    public Connection getCon() {
+    
+     public Connection getCon() {
         return con;
     }
 
-    public void setCon(Connection con) {
-        this.con = con;
+   public void setCon(DataSource ds) throws SQLException {
+        this.con = ds.getConnection();
     }
     
     public void load(int id) throws SQLException {
@@ -89,12 +89,30 @@ public class Master {
             return;
         } else {
             masterId = -1;
-            location = "";
             fName = "";
             lName = "";
         }
         rs.close();
         st.close();
+    }
+    public void load(DataSource ds, int id) throws SQLException {
+        Connection con = ds.getConnection();
+        Statement st = con.createStatement();
+        ResultSet rs = st.executeQuery("SELECT master_id, location, f_name, l_name FROM " + tableName + " WHERE master_id = " + id);
+        if (rs.next()) {
+            masterId = rs.getInt("master_id");
+            location = rs.getString("location");
+            fName = rs.getString("f_name");
+            lName = rs.getString("l_name");
+            return;
+        } else {
+            masterId = -1;
+            fName = "";
+            lName = "";
+        }
+        rs.close();
+        st.close();
+        con.close();
     }
     
     public static void del(DataSource ds, int id) throws SQLException {

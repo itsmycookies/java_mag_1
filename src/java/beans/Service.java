@@ -18,27 +18,27 @@ public class Service {
     
     public static final String tableName = "service";
     
-    private int serviseId;
+    private int serviceId;
     private String name;
     
     private Connection con;
 
-    public Service(int serviseId, String name) {
-        this.serviseId = serviseId;
+    public Service(int serviceId, String name) {
+        this.serviceId = serviceId;
         this.name = name;
     }
 
     public Service() {
-            serviseId = -1;
+            serviceId = -1;
             name = "";
     }
 
-    public int getServiseId() {
-        return serviseId;
+    public int getServiceId() {
+        return serviceId;
     }
 
-    public void setServiseId(int serviseId) {
-        this.serviseId = serviseId;
+    public void setServiceId(int serviceId) {
+        this.serviceId = serviceId;
     }
 
     public String getName() {
@@ -53,19 +53,35 @@ public class Service {
         return con;
     }
 
-    public void setCon(Connection con) {
-        this.con = con;
+   public void setCon(DataSource ds) throws SQLException {
+        this.con = ds.getConnection();
     }
     
+    public void load(DataSource ds, int id) throws SQLException {
+        Connection con = ds.getConnection();
+        Statement st = con.createStatement();
+        ResultSet rs = st.executeQuery("SELECT service_id, name FROM " + tableName + " WHERE service_id = " + id);
+        if (rs.next()) {
+            serviceId = rs.getInt("service_id");
+            name = rs.getString("name");
+            return;
+        } else {
+            serviceId = -1;
+            name = "";
+        }
+        rs.close();
+        st.close();
+        con.close();
+    }
     public void load(int id) throws SQLException {
         Statement st = con.createStatement();
         ResultSet rs = st.executeQuery("SELECT service_id, name FROM " + tableName + " WHERE service_id = " + id);
         if (rs.next()) {
-            serviseId = rs.getInt("service_id");
+            serviceId = rs.getInt("service_id");
             name = rs.getString("name");
             return;
         } else {
-            serviseId = -1;
+            serviceId = -1;
             name = "";
         }
         rs.close();
@@ -90,12 +106,12 @@ public class Service {
         Statement st = con.createStatement();
         st.executeUpdate("DELETE FROM " + tableName + " WHERE service_id=" + id);
         st.close();
-        serviseId = -1;
+        serviceId = -1;
         
     }
     
         public void add() throws SQLException {
-            if (serviseId != -1) {
+            if (serviceId != -1) {
                 return;
             }
 
@@ -105,17 +121,17 @@ public class Service {
     }
         
         public void update() throws SQLException {
-        if (serviseId == -1) {
+        if (serviceId == -1) {
             return;
         }
         Statement st = con.createStatement();
-        String qu = "UPDATE " + tableName + " SET name='" + name + "' WHERE service_id=" + serviseId;
+        String qu = "UPDATE " + tableName + " SET name='" + name + "' WHERE service_id=" + serviceId;
         st.executeUpdate(qu);
         st.close();
     }
         
         public void save() throws SQLException {
-        if (serviseId == -1) {
+        if (serviceId == -1) {
             add();
         } else {
             update();

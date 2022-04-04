@@ -18,9 +18,9 @@ import javax.sql.DataSource;
 public class ServiceDir {
     
     private String findStr;
-    private ArrayList <Service> services;
+    private final ArrayList <Service> services;
     
-    public ServiceDir(){
+    public ServiceDir() {
         findStr = "";
         services = new ArrayList<>();
     }
