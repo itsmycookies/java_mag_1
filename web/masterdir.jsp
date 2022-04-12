@@ -47,8 +47,8 @@
                     <jsp:useBean id="master" class="beans.Master" scope="page" />
                     <tr>
                         <td><input type="radio"  name="master_rbt" value="${master.masterId}" /></td>
-                        <td>${master.lName}</td>
-                        <td>${master.fName}</td>
+                        <td>${master.LName}</td>
+                        <td>${master.FName}</td>
                         <td><a href="master.jsp?id=${master.masterId}">Изменить</a></td>
                         <td><a href="masterDel?id=${master.masterId}">Удалить</a></td>
                     </tr>

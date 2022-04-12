@@ -25,11 +25,11 @@ public class MasterDir {
         masters = new ArrayList<>();
     }
 
-    public int getStudsCount() {
+    public int getMastersCount() {
         return masters.size();
     }
 
-    public Master[] getStuds() {
+    public Master[] getMasters() {
         Master[] res = new Master[masters.size()];
         masters.toArray(res);
         return res;
@@ -53,7 +53,7 @@ public class MasterDir {
         masters.clear();
         Connection con = ds.getConnection();
         Statement st = con.createStatement();
-        String qu = "SELECT master_id, age, first_name, last_name FROM " + Master.tableName + " WHERE last_name LIKE '%" + findStr + "%'";
+        String qu = "SELECT master_id, location, f_name, l_name FROM " + Master.tableName + " WHERE l_name LIKE '%" + findStr + "%'";
         ResultSet rs = st.executeQuery(qu);
         while (rs.next()) {
             masters.add(new Master(rs.getInt("master_id"), rs.getString("location"), rs.getString("f_name"), rs.getString("l_name")));

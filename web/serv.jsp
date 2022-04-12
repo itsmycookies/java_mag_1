@@ -16,11 +16,11 @@
     </head>
     <body>
         <form action='servdir.jsp' method="post">
-            <jsp:useBean id="sub" class="beans.Service" scope="page" />
+            <jsp:useBean id="serv" class="beans.Service" scope="session" />
             
             <c:if test="${empty param.create}" >
-                ${sub.setCon(sessionScope.DataSource)}
-                ${sub.load(param.id)}
+                ${serv.setCon(sessionScope.DataSource)}
+                ${serv.load(param.id)}
             </c:if> 
             
             <table>
@@ -34,9 +34,9 @@
                 </c:choose>
                 <tr>
                     <td align="right">Наименование:</td> 
-                    <td align="left" ><input type="text" name='name' value='${sub.name}' /> </td>
+                    <td align="left" ><input type="text" name='name' value='${serv.name}' /> </td>
                 </tr>   <tr>
-                    <td align="right"><input type="submit" name='save' value='Сохранить' formMethod="post" formAction="subsave"/></td> 
+                    <td align="right"><input type="submit" name='save' value='Сохранить' formMethod="post" formAction="servsaveserv"/></td> 
                     <td align="left"><input type="submit" name='cancel' value='Отмена' formMethod="post" formAction="servdir.jsp"/></td>
                 </tr>   
             </table>

@@ -16,7 +16,7 @@
     </head>
     <body>
         <form action='masterdir.jsp' method="post">
-            <jsp:useBean id="master" class="beans.Master" scope="page" />
+            <jsp:useBean id="master" class="beans.Master" scope="session" />
             
             <c:if test="${empty param.create}" >
                 ${master.setCon(sessionScope.DataSource)}
@@ -34,18 +34,18 @@
                 </c:choose>
                 <tr>
                     <td align="right">Фамилия:</td> 
-                    <td align="left" ><input type="text" name='l_name' value='${master.lName}' /> </td>
+                    <td align="left" ><input type="text" name='l_name' value='${master.LName}' /> </td>
                 </tr>   
                 <tr>
                     <td align="right">Имя:</td> 
-                    <td align="left" ><input type="text" name='f_name' value='${master.fName}' /> </td>
+                    <td align="left" ><input type="text" name='f_name' value='${master.FName}' /> </td>
                 </tr>   
                 <tr>
                     <td align="right">Район:</td> 
                     <td align="left" ><input type="text" name='location' value='${master.location}' /> </td>
                 </tr>   
                 <tr>
-                    <td align="right"><input type="submit" name='save' value='Сохранить' formMethod="post" formAction="subsave"/></td> 
+                    <td align="right"><input type="submit" name='save' value='Сохранить' formMethod="post" formAction="mastersave"/></td> 
                     <td align="left"><input type="submit" name='cancel' value='Отмена' formMethod="post" formAction="masterdir.jsp"/></td>
                 </tr>   
             </table>

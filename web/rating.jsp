@@ -40,7 +40,7 @@
                         </c:choose>
                 <tr>
                     <td align="right">Мастер:</td> 
-                    <td align="left" ><div name = 'master' style="border: 1px solid black;height: 20px">${rating.master.lName} </div> </td>
+                    <td align="left" ><div name = 'master' style="border: 1px solid black;height: 20px">${rating.master.LName} </div> </td>
                     <td> <input type="submit" name='mastersel' value='Выбрать' formMethod="get" formAction="masterdir.jsp"/></td>
                 </tr>  
                 <tr>
