@@ -46,7 +46,7 @@
                 <c:forEach var="serv" items="${servDir.services}" >
                     <jsp:useBean id="serv" class="beans.Service" scope="page" />
                     <tr>
-                        <td><input type="radio"  name="sub_rbt" value="${serv.serviceId}" /></td>
+                        <td><input type="radio"  name="serv_rbt" value="${serv.serviceId}" /></td>
                         <td>${serv.name}</td>
                         <td><a href="serv.jsp?id=${serv.serviceId}">Изменить</a></td>
                         <td><a href="servDel?id=${serv.serviceId}">Удалить</a></td>
